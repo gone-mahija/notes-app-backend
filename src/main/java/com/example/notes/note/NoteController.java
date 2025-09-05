@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/notes")
 @RequiredArgsConstructor   // generates constructor for final fields
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://notes-app-frontend-indol.vercel.app"})
 public class NoteController {
 
     private final NoteService noteService;
