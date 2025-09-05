@@ -1,16 +1,23 @@
-# Use OpenJDK 21 slim image
+# Use OpenJDK 21
 FROM openjdk:21-jdk-slim
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy only the built JAR
-COPY target/notes-0.0.1-SNAPSHOT.jar app.jar
+# Copy all project files
+COPY . .
+
+# Make mvnw executable
+RUN chmod +x mvnw
+
+# Build the Spring Boot project (skip tests)
+RUN ./mvnw clean package -DskipTests
+
+# Copy the generated JAR to a standard name
+RUN cp target/notes-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose port from Render's PORT env variable
-ENV PORT 8080
-EXPOSE $PORT
+EXPOSE 8080
 
-# Run the Spring Boot app using the Render port
-CMD ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
-
+# Start the Spring Boot app
+CMD ["java", "-jar", "app.jar"]
