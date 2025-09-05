@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/notes")
 @RequiredArgsConstructor   // generates constructor for final fields
+@CrossOrigin(origins = "http://localhost:5173")
 public class NoteController {
 
     private final NoteService noteService;
